@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-
 class CategoryController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $categories = Category::all();
+        $sort = $request->get('sort', 'id');
+        $direction = $request->get('direction', 'asc');
+
+        $categories = Category::orderBy($sort, $direction)
+            ->paginate(20)
+            ->appends(['sort' => $sort, 'direction' => $direction]);
         return view('admin.categories.index', compact('categories'));
     }
 

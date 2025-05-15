@@ -15,10 +15,17 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
-<div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+<div>
 
-    <main>
-        {{ $slot }}
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                navbar типо
+            </div>
+            <div class="col-md-10">
+                @yield('content')
+            </div>
+        </div>
     </main>
 </div>
 </body>
