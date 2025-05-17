@@ -20,5 +20,10 @@ class Project extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    // Связь с изображениями проекта
+    public function images()
+    {
+        return $this->hasMany(ProjectImage::class);
+    }
 
 }

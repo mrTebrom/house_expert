@@ -33,11 +33,15 @@
                 <td>{{ $project->floors }}</td>
                 <td>{{ $project->has_basement ? 'Да' : 'Нет' }}</td>
                 <td>
-                    <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-sm btn-warning">✏️</a>
+                    <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-sm btn-warning">
+                        @include('components.edit')
+                    </a>
                     <form action="{{ route('admin.projects.destroy', $project) }}" method="POST" class="d-inline" onsubmit="return confirm('Удалить проект?');">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-sm btn-danger">🗑</button>
+                        <button class="btn btn-sm btn-danger">
+                            @include('components.delete')
+                        </button>
                     </form>
                 </td>
             </tr>
