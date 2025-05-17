@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 // Слайдер
 use App\Http\Controllers\SliderController;
+// Проекты
+use App\Http\Controllers\Admin\ProjectController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,6 +20,9 @@ Route::get('/', function () {
 Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('/', fn () => redirect()->route('admin.categories.index'));
     Route::resource('categories', CategoryController::class);
+    Route::resource('projects', ProjectController::class);
+
+    Route::resource('sliders', SliderController::class);
 });
 
 /*
@@ -32,7 +37,6 @@ Route::prefix('api')->as('webapi.')->group(function () {
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
 
-    Route::resource('sliders', SliderController::class);
 
 });
 Route::get('/dashboard', function () {

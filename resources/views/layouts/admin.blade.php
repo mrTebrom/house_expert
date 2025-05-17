@@ -20,7 +20,23 @@
     <main class="container-fluid">
         <div class="row">
             <div class="col-md-2">
-                navbar типо
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Active</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.categories.index') }}">Категорий</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.sliders.index') }}">Слайдер</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.projects.index') }}">Проекты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
             </div>
             <div class="col-md-10">
                 @yield('content')
