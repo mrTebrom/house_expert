@@ -72,10 +72,9 @@ class ProjectImageController extends Controller
         ]);
 
         foreach ($request->order as $index => $id) {
-            $image = $project->images()->find($id);
-            if ($image) {
-                $image->update(['order' => $index]);
-            }
+            ProjectImage::where('id', $id)
+                ->where('project_id', $project->id)
+                ->update(['order' => $index]);
         }
 
         return response()->json(['message' => 'Порядок изображений обновлён.']);

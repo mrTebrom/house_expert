@@ -1,30 +1,48 @@
 import Sortable from 'sortablejs'
 
-export function gallerySortable () {
+export function gallerySortable(projectId) {
     return {
+        lastOrder: [],
+
         initSortable() {
-            const el = document.getElementById('image-gallery');
+            const el = document.getElementById('sortable-wrapper');
             if (!el) return;
+
+            const getCurrentOrder = () => {
+                return Array.from(el.querySelectorAll('[data-id]'))
+                    .map(child => parseInt(child.dataset.id));
+            };
+
+            this.lastOrder = getCurrentOrder();
 
             Sortable.create(el, {
                 animation: 150,
                 handle: '.drag-handle',
+                draggable: '.col-md-3',
                 onEnd: () => {
-                    const order = Array.from(el.children)
-                        .filter(child => child.dataset.id)
-                        .map(child => parseInt(child.dataset.id));
+                    const newOrder = getCurrentOrder();
 
-                    fetch('/admin/projects/' + el.dataset.projectId + '/images/reorder', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({ order })
-                    }).then(r => r.json()).then(console.log);
+                    // Проверка: если порядок не изменился — ничего не делаем
+                    if (JSON.stringify(this.lastOrder) === JSON.stringify(newOrder)) {
+                        return;
+                    }
+
+                    this.lastOrder = newOrder;
+
+                    // Отложенная отправка (debounce-like)
+                    setTimeout(() => {
+                        fetch(`/admin/projects/${projectId}/images/reorder`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({ order: newOrder })
+                        }).then(r => r.json()).then(console.log);
+                    }, 300);
                 }
             });
         }
     };
-};
+}

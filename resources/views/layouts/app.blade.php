@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>@yield('title', 'Hous Expert')</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
         <header class="bg-dark text-white">
@@ -24,12 +24,12 @@
                         </ul>
                         <div class="d-flex">
                             @auth
-                                <div x-data="{ open: false }" class="dropdown">
-                                    <button class="btn btn-outline-light dropdown-toggle" type="button" @click="open = !open">
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                         {{ Auth::user()->name }}
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-end" x-show="open" @click.away="open = false">
-                                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Профиль</a></li>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a href="{{ route('admin.categories.index') }}" class="dropdown-item">Категории</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li>
                                             <form method="POST" action="{{ route('logout') }}" class="d-inline">
@@ -77,7 +77,8 @@
                                            id="email"
                                            name="email"
                                            x-model="form.email"
-                                           required>
+                                           required autocomplete="current-email"
+                                    >
                                     <div class="invalid-feedback" x-text="errors.email"></div>
                                 </div>
                                 <div class="mb-3">
@@ -88,7 +89,9 @@
                                            id="password"
                                            name="password"
                                            x-model="form.password"
-                                           required>
+                                           required
+                                           autocomplete="current-password"
+                                    >
                                     <div class="invalid-feedback" x-text="errors.password"></div>
                                 </div>
                                 <div class="mb-3 form-check">
@@ -144,7 +147,8 @@
                                            id="register-email"
                                            name="email"
                                            x-model="form.email"
-                                           required>
+                                           required
+                                           autocomplete="new-email">
                                     <div class="invalid-feedback" x-text="errors.email"></div>
                                 </div>
                                 <div class="mb-3">
@@ -155,7 +159,9 @@
                                            id="register-password"
                                            name="password"
                                            x-model="form.password"
-                                           required>
+                                           required
+                                           autocomplete="new-password"
+                                    >
                                     <div class="invalid-feedback" x-text="errors.password"></div>
                                 </div>
                                 <div class="mb-3">
@@ -166,7 +172,8 @@
                                            id="password_confirmation"
                                            name="password_confirmation"
                                            x-model="form.password_confirmation"
-                                           required>
+                                           required
+                                           autocomplete="new-password">
                                     <div class="invalid-feedback" x-text="errors.password_confirmation"></div>
                                 </div>
                                 <div x-show="errorMessage" class="alert alert-danger mb-3" x-text="errorMessage"></div>
@@ -183,7 +190,6 @@
             </div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
             function loginForm() {
                 return {
