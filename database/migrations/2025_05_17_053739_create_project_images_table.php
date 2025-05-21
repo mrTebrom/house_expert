@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->constrained()->onDelete('cascade');
             $table->longText('base64');
+            $table->boolean('is_main')->default(false);
             $table->string('mime_type');
+            $table->integer('order')->default(0); // порядок отображения
             $table->string('alt')->nullable(); // описание (альт-текст)
             $table->timestamps();
         });

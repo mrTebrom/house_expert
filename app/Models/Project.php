@@ -23,7 +23,11 @@ class Project extends Model
     // Связь с изображениями проекта
     public function images()
     {
-        return $this->hasMany(ProjectImage::class);
+        return $this->hasMany(ProjectImage::class)->orderBy('order');
+    }
+    public function mainImage()
+    {
+        return $this->hasOne(ProjectImage::class)->where('is_main', true);
     }
 
 }

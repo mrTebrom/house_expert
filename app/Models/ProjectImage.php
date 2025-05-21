@@ -14,9 +14,15 @@ class ProjectImage extends Model
         'base64',
         'mime_type',
         'alt',
+        'order',
+        'is_main',
     ];
 
-    // Отношение к проекту
+    protected $casts = [
+        'is_main' => 'boolean',
+        'order' => 'integer',
+    ];
+
     public function project()
     {
         return $this->belongsTo(Project::class);

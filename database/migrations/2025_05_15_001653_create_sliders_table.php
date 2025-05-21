@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('link')->nullable();
             $table->text('description')->nullable();
-            $table->longText('image_base64'); // base64 encoded image
+            $table->longText('image_base64'); // base64 encoded images
             $table->timestamps();
         });
     }

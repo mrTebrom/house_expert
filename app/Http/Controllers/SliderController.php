@@ -19,10 +19,10 @@ class SliderController extends Controller
             'title' => 'required|string|max:255',
             'link' => 'nullable|url',
             'description' => 'nullable|string',
-            'image' => 'required|image|max:2048',
+            'images' => 'required|images|max:2048',
         ]);
 
-        $image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
+        $image = base64_encode(file_get_contents($request->file('images')->getRealPath()));
 
         Slider::create([
             'title' => $validated['title'],
@@ -44,11 +44,11 @@ class SliderController extends Controller
             'title' => 'required|string|max:255',
             'link' => 'nullable|url',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
+            'images' => 'nullable|images|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            $image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
+        if ($request->hasFile('images')) {
+            $image = base64_encode(file_get_contents($request->file('images')->getRealPath()));
             $slider->image_base64 = $image;
         }
 
