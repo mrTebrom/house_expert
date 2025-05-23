@@ -30,4 +30,14 @@ class Project extends Model
         return $this->hasOne(ProjectImage::class)->where('is_main', true);
     }
 
+    public function detailValues()
+    {
+        return $this->hasMany(ProjectDetailValue::class);
+    }
+
+    public function detailsWithField()
+    {
+        return $this->hasMany(ProjectDetailValue::class)->with('field');
+    }
+
 }

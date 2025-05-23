@@ -19,25 +19,26 @@
 
     <main class="container-fluid">
         <div class="row">
-            <div class="col-md-2">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Active</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.categories.index') }}">Категорий</a>
-                    </li>
-                    <li class="nav-item">
+            <div class="col-md-2 pt-3">
+                <ul class="list-group">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+
+                    <li class="list-group-item list-group-item-action {{ request()->routeIs('admin.sliders.*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.sliders.index') }}">Слайдер</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.projects.index') }}">Проекты</a>
+                    <li class="list-group-item list-group-item-action {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.categories.index') }}">Категорий</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <li class="list-group-item list-group-item-action {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.categories.index') }}">Детали проекта</a>
+                    </li>
+                    <li class="list-group-item list-group-item-action {{ request()->routeIs('admin.projects.*') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.projects.index') }}">Проекты</a>
                     </li>
                 </ul>
             </div>
+
             <div class="col-md-10">
                 @yield('content')
             </div>
