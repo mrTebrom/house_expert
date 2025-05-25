@@ -12,4 +12,8 @@ class DetailField extends Model
     {
         return $this->hasMany(ProjectDetailValue::class, 'detail_field_id');
     }
+    protected $casts = [
+        'options' => 'array',
+    ];
+
 }

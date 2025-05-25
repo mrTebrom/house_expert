@@ -31,7 +31,7 @@
                         <a class="nav-link" href="{{ route('admin.categories.index') }}">Категорий</a>
                     </li>
                     <li class="list-group-item list-group-item-action {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin.categories.index') }}">Детали проекта</a>
+                        <a class="nav-link" href="{{ route('admin.detail_fields.index') }}">Детали проекта</a>
                     </li>
                     <li class="list-group-item list-group-item-action {{ request()->routeIs('admin.projects.*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.projects.index') }}">Проекты</a>

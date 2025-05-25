@@ -7,6 +7,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProjectImageController as AdminProjectImageController;
+use App\Http\Controllers\Api\DetailFieldController;
+use App\Http\Controllers\Admin\DetailFieldPageController;
 
 // Профиль
 use App\Http\Controllers\ProfileController;
@@ -46,7 +48,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::post('{image}/main', [AdminProjectImageController::class, 'setMain'])->name('setMain'); // Установка главного
         Route::delete('{image}', [AdminProjectImageController::class, 'destroy'])->name('destroy');    // Удаление
     });
-
+    Route::get('detail-fields', [DetailFieldPageController::class, 'index'])->name('detail_fields.index');
 });
 
 /*
@@ -59,6 +61,14 @@ Route::prefix('api')->as('webapi.')->middleware(['auth'])->group(function () {
     Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+
+    Route::prefix('detail-fields')->group(function () {
+        Route::get('/', [DetailFieldController::class, 'index']);
+        Route::post('/', [DetailFieldController::class, 'store']);
+        Route::put('/{detailField}', [DetailFieldController::class, 'update']);
+        Route::delete('/{detailField}', [DetailFieldController::class, 'destroy']);
+    });
 });
 
 /*
